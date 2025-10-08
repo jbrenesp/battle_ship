@@ -11,7 +11,6 @@ class BattleShip
     puts "Player's Board:"
     @player_board.display
     
-
     puts "\nComputer's Board:"
     @computer_board.display
   end

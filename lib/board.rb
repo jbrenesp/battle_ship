@@ -1,5 +1,6 @@
 #lib/board.rb
 class Board
+  #constants (never change) .to_a so i can loop pront or acces elements
   ROWS = ('A'..'J').to_a
   COLUMNS = (1..10).to_a
 

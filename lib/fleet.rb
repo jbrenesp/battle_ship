@@ -17,6 +17,7 @@ class Fleet
     @ships << Ship.new("Destroyer 2", 2)
     @ships << Ship.new("Submarine 1", 1)
     @ships << Ship.new("Submarine 2", 1)
+  end
 
     def display_fleet
       puts "Fleet:"

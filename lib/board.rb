@@ -1,6 +1,6 @@
 #lib/board.rb
 class Board
-  #constants (never change) .to_a so i can loop pront or acces elements
+  #constants (never change) .to_a so i can loop or acces elements
   ROWS = ('A'..'J').to_a
   COLUMNS = (1..10).to_a
 
@@ -15,6 +15,24 @@ class Board
     #prints each row with the row letter
     @grid.each_with_index do |row, i|
       puts "#{ROWS[i]} #{row.join('   ')}"
+    end
+  end
+# parameters or arguments are inside the parenthesis
+  def place_ship(ship, start_row, start_col, orientation)
+    # with index(start_row) it finds the position of the letter inside the array
+    row_index = ROWS.index(start_row)
+    # we use start_col - 1 because the ruby index starts at 0
+    col_index = start_col - 1
+    # .size.times do i takes the size of the ship and moves thorugh the row or column
+    ship.size.times do |i|
+      if orientation == 'H'
+        @grid[row_index][col_index + i] = 'S'
+        # ship coordinates is an array and << appends a new element to the array
+        ship.coordinates << [start_row, start_col + i]
+      elsif orientation == 'V'
+        @grid[row_index + i][col_index] = 'S'
+        ship.coordinates << [ROWS[row_index + i], start_col]
+      end
     end
   end
 end

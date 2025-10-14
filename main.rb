@@ -23,7 +23,7 @@ submarine2 = Ship.new("Submarine 2", 1)
 
 
 board.place_ship(carrier, 'B', 3, 'H')
-board.place_ship(battleship, 'D', 1, 'V')
+board.place_ship(battleship, 'B', 3, 'H')
 board.place_ship(cruiser,'F', 5, 'H')
 board.place_ship(destroyer1,'A', 1, 'V')
 board.place_ship(destroyer2, 'J', 6, 'H')

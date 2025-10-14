@@ -23,13 +23,19 @@ class Board
     row_index = ROWS.index(start_row)
     # we use start_col - 1 because the ruby index starts at 0
     col_index = start_col - 1
-    # .size.times do i takes the size of the ship and moves thorugh the row or column
+    # .size.times do i takes the size of the ship and moves through the row or column
     ship.size.times do |i|
       if orientation == 'H'
+        if @grid[row_index][col_index + i] == 'S'
+          raise "Cannot place #{ship.name}: space already taken!"
+        end
         @grid[row_index][col_index + i] = 'S'
         # ship coordinates is an array and << appends a new element to the array
         ship.coordinates << [start_row, start_col + i]
       elsif orientation == 'V'
+        if @grid[row_index + i][col_index] == 'S'
+          raise "Cannot place #{ship.name}: space already taken!"
+        end
         @grid[row_index + i][col_index] = 'S'
         ship.coordinates << [ROWS[row_index + i], start_col]
       end

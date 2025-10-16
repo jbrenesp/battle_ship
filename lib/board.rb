@@ -75,6 +75,21 @@ class Board
       end
     end
   end
+
+  def fire(row, col)
+    row_index = ROWS.index(row)
+    col_index = col -1
+
+    if @grid[row_index][col_index] == 'S'
+      @grid[row_index][col_index] = 'X'
+      return "Hit"
+    elsif @grid[row_index][col_index] == '~'
+      @grid[row_index][col_index] = 'O'
+      return 'Miss'
+    else
+      return "Already fired here!!"
+    end
+  end
 end
 
 

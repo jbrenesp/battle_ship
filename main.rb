@@ -1,18 +1,18 @@
-# require_relative 'lib/game.rb'
+require_relative 'lib/game.rb'
 require_relative 'lib/ship.rb'
 # require_relative 'lib/player.rb'
 require_relative 'lib/board.rb'
 require_relative 'lib/fleet.rb'
 
-#fleet = Fleet.new
-#fleet.display_fleet
+
+
 
 computer_board = Board.new
 computer_fleet = Fleet.new
 
 computer_board.place_fleet_randomly(computer_fleet.ships)
 
-puts "Computer Board:"
+puts "Computer Board for testing:"
 computer_board.display
 
 puts "\nComputer Ship Coordinates:"
@@ -20,33 +20,11 @@ computer_fleet.ships.each do |ship|
   puts "#{ship.name}: #{ship.coordinates.inspect}"
 end
 
-#board = Board.new
+game = BattleShip.new
+game.computer_board = computer_board
+game.computer_fleet = computer_fleet
 
-#carrier = Ship.new("Carrier", 5)
-#battleship = Ship.new("Battleship", 4)
-#cruiser = Ship.new("Cruiser", 3)
-#destroyer1 = Ship.new("Destroyer 1", 2)
-#destroyer2 = Ship.new("Destroyer 2", 2)
-#submarine1 = Ship.new("Submarine 1", 1)
-#submarine2 = Ship.new("Submarine 2", 1)
-#puts "#{carrier.name} (size #{carrier.size}) created"
+game.player_turn
+puts "\nComputer Board after player turn:"
+computer_board.display
 
-#game = BattleShip.new
-#game.play
-
-
-#board.place_ship(carrier, 'B', 3, 'H')
-#board.place_ship(battleship, 'D', 3, 'H')
-#board.place_ship(cruiser,'F', 5, 'H')
-#board.place_ship(destroyer1,'A', 1, 'V')
-#board.place_ship(destroyer2, 'J', 6, 'H')
-#board.place_ship(submarine1, 'I', 10, 'V')
-#board.place_ship(submarine2, 'E', 10, 'H')
-#board.display
-
-#puts "Carrier coordinates: #{carrier.coordinates.inspect}"
-
-#puts "\nShip coordinates:"
-#[carrier, battleship, cruiser, destroyer1, destroyer2, submarine1, submarine2].each do |ship|
-#  puts "#{ship.name}: #{ship.coordinates.inspect}"
-#end

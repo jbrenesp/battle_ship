@@ -60,5 +60,21 @@ class Board
       end
     end
   end
+
+  def place_fleet_randomly(fleet)
+    fleet.each do |ship|
+      placed = false
+      until placed
+        start_row = ROWS.sample
+        start_col = (1..@grid.first.size).to_a.sample
+        orientation = ['H', 'V'].sample
+        if valid_placement?(ship, start_row, start_col, orientation)
+          place_ship(ship, start_row, start_col, orientation)
+          placed = true
+        end
+      end
+    end
+  end
 end
+
 

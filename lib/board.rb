@@ -17,8 +17,27 @@ class Board
       puts "#{ROWS[i]} #{row.join('   ')}"
     end
   end
+
+  def valid_placement?(ship, start_row, start_col, orientation)
+    row_index = ROWS.index(start_row)
+    col_index = start_col - 1
+
+    ship.size.times do |i|
+      if orientation == 'H'
+        return false if col_index + i >= COLUMNS.size
+        return false if @grid[row_index][col_index + i] != '~'
+      elsif orientation == 'V'
+        return false if row_index + i >= ROWS.size
+        return false if @grid[row_index + i][col_index] != '~'
+      end
+    end
+    true
+  end
+
+
 # parameters or arguments are inside the parenthesis
   def place_ship(ship, start_row, start_col, orientation)
+    return puts "Invalid placement for #{ship.name}!" unless valid_placement?(ship, start_row, start_col, orientation)
     # with index(start_row) it finds the position of the letter inside the array
     row_index = ROWS.index(start_row)
     # we use start_col - 1 because the ruby index starts at 0

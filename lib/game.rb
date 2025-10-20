@@ -10,18 +10,10 @@ class BattleShip
 
     @player_fleet = Fleet.new
     @computer_fleet = Fleet.new
-  end
 
-  def play
-    puts "Player's Fleet:"
-    @player_fleet.display_fleet
-
-    puts "Player's Board:"
-    @player_board.display
-
-    #\n starts on a new line giving space for the new board
-    puts "\nComputer's Board:"
-    @computer_board.display
+    #automatically place ships
+    @computer_board.place_fleet_randomly(@computer_fleet.ships)
+    @player_board.place_fleet_randomly(@player_fleet.ships)
   end
 
   def player_turn
@@ -36,5 +28,43 @@ class BattleShip
 
     result = @computer_board.fire(row, col)
     puts result
+  end
+
+  def play
+    loop do 
+      puts "\nYour Turn!"
+      print "Enter coordinates to fire (e.g. --> B3):"
+      input = gets.chomp.upcase
+      row, col = input [0], input[1..].to_i
+      result = @computer_board.fire(row, col)
+      puts result
+
+      if @computer_board.all_ships_sunk?
+        puts "nYou Win!!"
+        break
+      end
+
+      puts "\nComputer's turn..."
+      sleep(1)
+
+      begin
+        comp_row = Board::ROWS.sample
+        comp_col = rand(1..Board::COLUMNS.size)
+      end while @player_board.already_fired_at?(comp_row, comp_col)
+
+      result = @player_board.fire(comp_row, comp_col)
+      puts "Computer fires at #{comp_row}#{comp_col}: #{result}"
+
+      if @player_board.all_ships_sunk?
+        puts"\nComputer wins!"
+        break
+      end
+      
+      puts "\nYour Board:"
+      @player_board.display
+
+      puts "\n Computer's Board:"
+      @computer_board.display_public_view
+    end
   end
 end

@@ -90,6 +90,33 @@ class Board
       return "Already fired here!!"
     end
   end
+
+  def already_fired_at?(row, col)
+    row = row.index(row.upcase)
+    col = col.to_i - 1
+    cell = @grid[row][col]
+    cell == 'X' || cell == "O"
+  end
+
+  def all_ships_sunk?
+    # If there are no 'S' (ships) left, all are sunk, 2D grid into a 1D array
+    !@grid.flatten.include?('S')
+  end
+
+  def display_public_view
+  # print column headers
+  puts "  " + COLUMNS.join('   ')
+  # print each row with hidden ships
+  @grid.each_with_index do |row, i|
+    display_row = row.map { |cell| cell == 'S' ? '~' : cell }
+    puts "#{ROWS[i]} #{display_row.join('   ')}"
+  end
+end
+
+
+
+
+
 end
 
 

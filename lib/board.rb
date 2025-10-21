@@ -34,7 +34,6 @@ class Board
     true
   end
 
-
 # parameters or arguments are inside the parenthesis
   def place_ship(ship, start_row, start_col, orientation)
     return puts "Invalid placement for #{ship.name}!" unless valid_placement?(ship, start_row, start_col, orientation)
@@ -112,11 +111,4 @@ class Board
     puts "#{ROWS[i]} #{display_row.join('   ')}"
   end
 end
-
-
-
-
-
 end
-
-

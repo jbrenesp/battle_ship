@@ -73,6 +73,8 @@ class BattleShip
     elsif result == "Miss"
       puts "💦 The computer missed at #{row}#{col}."
     end
+
+    sleep(3)
     
     # Then show the updated board
     @player_board.display

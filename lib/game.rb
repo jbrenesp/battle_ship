@@ -35,17 +35,32 @@ class BattleShip
 
   def player_turn
     puts "\nYour turn!"
-    print "Enter coordinates to fire (e.g., B3):"
-    input = gets.chomp.upcase
-    row, col = input[0], input[1..].to_i
+    loop do
+      print "Enter coordinates to fire (e.g., B3):"
+      input = gets.chomp.upcasa
 
-    result = @computer_board.fire(row,col)
-    puts result
+      row = input[0]
+      col = input[1..].to_i
+
+      unless Board::ROWS.include?(row) && Board::COLUMNS.include?(col)
+        puts "❌ Invalid input. Use a valid coordinate (e.g., A1-#{Board::ROWS.last}#{Board::COLUMNS.last})."
+        next
+      end
+
+      if @computer_board.already_fired_at?(row,col)
+        puts "⚠️ You already fired at #{row}#{col}. Try again!"
+        next
+      end
+      
+      result = @computer_board.fire(row,col)
+      puts result
+      break
+    end
   end
 
   def computer_turn
     puts "\nComputer's turn..."
-    sleep(1)
+    sleep(3)
 
     begin
       comp_row = Board::ROWS.sample

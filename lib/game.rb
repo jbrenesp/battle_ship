@@ -37,7 +37,7 @@ class BattleShip
     puts "\nYour turn!"
     loop do
       print "Enter coordinates to fire (e.g., B3):"
-      input = gets.chomp.upcasa
+      input = gets.chomp.upcase
 
       row = input[0]
       col = input[1..].to_i
@@ -62,14 +62,33 @@ class BattleShip
     puts "\nComputer's turn..."
     sleep(3)
 
-    begin
-      comp_row = Board::ROWS.sample
-      comp_col = rand(1..Board::COLUMNS.size)
-    end while @player_board.already_fired_at?(comp_row, comp_col)
+    row = Board::ROWS.sample
+    col = Board::COLUMNS.sample
 
-    result = @player_board.fire(comp_row, comp_col)
-    puts "Computer fires at #{comp_row}#{comp_col}: #{result}"
+    while @player_board.already_fired_at?(row, col)
+      row = Board::ROWS.sample
+      col = Board::COLUMNS.sample
+    end
+    
+    result = @player_board.fire(row, col)
+    puts "Computer fires at #{row}#{col} - #{result}!"
+    sleep(3)
+
+    if result == "Hit"
+      puts "🔥 The computer hit one of your ships!"
+    elsif result == "Miss"
+      puts "💦 The computer missed."
+    end
+    
+    @player_board.display
+    
+    if @player_board.all_ships_sunk?
+      puts "\n💀 All your ships are sunk! The computer wins!"
+      exit
+    end
   end
+
+
 
   def show_boards
     puts "\nYour Board:"

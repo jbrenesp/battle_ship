@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 require_relative 'fleet.rb'
 require_relative 'setup.rb'
+require_relative 'ai_player.rb'
 
 class BattleShip
   attr_accessor :computer_board, :computer_fleet
@@ -12,6 +13,7 @@ class BattleShip
     @computer_board = Board.new
     @player_fleet = Fleet.new
     @computer_fleet = Fleet.new
+    @computer_ai = AIPlayer.new
 
     #automatically place ships
     @computer_board.place_fleet_randomly(@computer_fleet.ships)
@@ -57,31 +59,25 @@ class BattleShip
       break
     end
   end
-
+  
   def computer_turn
     puts "\nComputer's turn..."
-    sleep(3)
-
-    row = Board::ROWS.sample
-    col = Board::COLUMNS.sample
-
-    while @player_board.already_fired_at?(row, col)
-      row = Board::ROWS.sample
-      col = Board::COLUMNS.sample
-    end
+    sleep(2)
     
-    result = @player_board.fire(row, col)
-    puts "Computer fires at #{row}#{col} - #{result}!"
-    sleep(3)
-
+    # Let the AI choose a target
+    result, (row, col) = @computer_ai.take_turn(@player_board)
+    
+    # Print hit/miss first
     if result == "Hit"
-      puts "🔥 The computer hit one of your ships!"
+      puts "🔥 The computer hit one of your ships at #{row}#{col}!"
     elsif result == "Miss"
-      puts "💦 The computer missed."
+      puts "💦 The computer missed at #{row}#{col}."
     end
     
+    # Then show the updated board
     @player_board.display
     
+    # Check for end game
     if @player_board.all_ships_sunk?
       puts "\n💀 All your ships are sunk! The computer wins!"
       exit

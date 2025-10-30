@@ -56,6 +56,12 @@ class BattleShip
       
       result = @computer_board.fire(row,col)
       puts result
+
+      if @computer_board.all_ships_sunk?
+        pause (2)
+        puts "\n🏆 Congratulations! You sank all enemy ships — YOU WIN! 🎉"
+        exit
+      end
       break
     end
   end

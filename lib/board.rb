@@ -52,6 +52,7 @@ end
       elsif orientation == 'V'
         return false if row_index + i >= ROWS.size
         return false if @grid[row_index + i][col_index] != '~'
+      else false
       end
     end
     true

@@ -1,4 +1,3 @@
-# lib/ship.rb
 class Ship
   attr_reader :name, :size, :coordinates
 

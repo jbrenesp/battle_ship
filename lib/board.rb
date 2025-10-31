@@ -1,4 +1,3 @@
-#lib/board.rb
 class Board
   #constants (never change) .to_a so i can loop or acces elements
   ROWS = ('A'..'J').to_a
